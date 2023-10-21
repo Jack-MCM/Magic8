@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ice Breaker</title>
+  <style>
+    body {
+      background-color: #00f; /* Fondo azul */
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .frame {
+      width: 300px; /* Ajusta el ancho del marco aquí */
+      height: 300px; /* Ajusta la altura del marco aquí */
+      border: 10px solid #fff; /* Color y grosor del borde del marco */
+      border-radius: 20px; /* Ajusta el radio de borde del marco */
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .ball {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background-color: #000;
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transform-style: preserve-3d;
+    }
+
+    .ball:before {
+      content: "8";
+      font-size: 80px;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      transform: translateZ(50px);
+    }
+
+    .ball.clicked {
+      animation: moveBall 0.3s ease;
+    }
+
+    @keyframes moveBall {
+      0% {
+        transform: scale(1) rotateX(0);
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      }
+      50% {
+        transform: scale(1.2) rotateX(180deg);
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+      }
+      100% {
+        transform: scale(1) rotateX(360deg);
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="frame">
+      <div class="ball" onclick="showRandomQuestion()"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+  <script>
+    function showRandomQuestion() {
+      var ball = document.querySelector('.ball');
+      ball.classList.add('clicked');
+
+      setTimeout(function() {
+        var questions = [
+          "¿Cuál es su hobby o pasatiempo preferido?",
+          "¿Cuál es su chiste favorito?",
+          "¿Cuál sería el título de su autobiografía?",
+          "Si tuviera que hablar como un personaje de dibujos animados por el resto de su vida, ¿a quién elegiría?",
+          "¿Cuál es el peor consejo que le han dado?",
+          "Si pudiera tener un superpoder, ¿cuál sería?",
+          "Si pudiera viajar en el tiempo, ¿a dónde iría?",
+          "¿Cuál es el fondo de pantalla actual de su escritorio o teléfono celular? ¿Por qué eligió esa imagen?",
+          "Si pudiera probar cualquier alimento/ platillo, ¿cuál sería?",
+        ];
+
+        var randomIndex = Math.floor(Math.random() * questions.length);
+        var question = questions[randomIndex];
+
+        Swal.fire({
+          title: "Pregunta",
+          text: question,
+          icon: "info",
+          confirmButtonText: "Aceptar",
+          customClass: {
+            content: "custom-swal-content",
+          },
+        });
+
+        ball.classList.remove('clicked');
+      }, 300);
+    }
+  </script>
+
+  <style>
+    .custom-swal-content {
+      font-size: 50px;
+    }
+  </style>
+</body>
+</html>
